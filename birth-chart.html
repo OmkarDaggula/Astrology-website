@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birth Chart Reading | Cosmic Insights</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: #0f0c29;
+            background: -webkit-linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Glass Card Style */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            padding: 40px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Step Navigation */
+        .step-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(156, 124, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            border: 2px solid #9c7cff;
+            color: #9c7cff;
+        }
+        
+        .step-circle.active {
+            background: #9c7cff;
+            color: white;
+        }
+        
+        /* Content Sections */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1 {
+            color: #9c7cff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #9c7cff, #6a4cff);
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #9c7cff;
+            color: #9c7cff;
+            margin-right: 15px;
+        }
+        
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1em;
+        }
+        
+        /* Result Display */
+        .result-display {
+            margin-top: 40px;
+        }
+
+        .chart-container {
+            margin: 40px 0;
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .chart-wheel {
+            width: 100%;
+            height: auto;
+            background: url('https://i.imgur.com/JQh1W1E.png') center/contain no-repeat;
+            aspect-ratio: 1/1;
+            position: relative;
+            filter: drop-shadow(0 0 20px rgba(156, 124, 255, 0.5));
+        }
+        
+        .planet-marker {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: #9c7cff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(156, 124, 255, 0.8);
+        }
+        
+        .chart-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #9c7cff;
+            flex-shrink: 0;
+        }
+        
+        .aspect-line {
+            position: absolute;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
+            transform-origin: 0 0;
+            top: 50%;
+            left: 50%;
+        }
+        
+        .planet-card {
+            background: rgba(156, 124, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .planet-card h3 {
+            color: #9c7cff;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .glass-card {
+                padding: 30px 20px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn-outline {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Step Navigation -->
+        <div class="step-nav">
+            <div class="step-circle active" data-step="1">1</div>
+            <div class="step-circle" data-step="2">2</div>
+            <div class="step-circle" data-step="3">3</div>
+            <div class="step-circle" data-step="4">4</div>
+        </div>
+        
+        <!-- Step 1: Introduction -->
+        <div class="content-section active" id="step1">
+            <div class="glass-card">
+                <h1>Discover Your Cosmic Blueprint</h1>
+                <p>Your birth chart is a snapshot of the sky at the exact moment you were born. It reveals your personality traits, strengths, challenges, and life path.</p>
+                <p>This interactive reading will guide you through understanding your unique astrological makeup.</p>
+                <div class="btn-group">
+                    <button class="btn" onclick="nextStep(2)">Begin Your Journey</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 2: Explore Components -->
+        <div class="content-section" id="step2">
+            <div class="glass-card">
+                <h1>What Makes Your Birth Chart Unique</h1>
+                <p>Let's explore the key components that create your astrological fingerprint:</p>
+                
+                <div class="planet-card">
+                    <h3>Sun Sign</h3>
+                    <p>Your core identity and life purpose - the essence of who you are.</p>
+                </div>
+                
+                <div class="planet-card">
+                    <h3>Moon Sign</h3>
+                    <p>Your emotional nature and instinctive reactions - how you process feelings.</p>
+                </div>
+                
+                <div class="planet-card">
+                    <h3>Ascendant (Rising)</h3>
+                    <p>How you present yourself to the world - your social personality.</p>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-outline" onclick="prevStep(1)">Back</button>
+                    <button class="btn" onclick="nextStep(3)">Continue</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 3: Sample Interpretation -->
+        <div class="content-section" id="step3">
+            <div class="glass-card">
+                <h1>See How It Works</h1>
+                <p>Here's a sample interpretation for someone born on August 15:</p>
+                
+                <div class="planet-card">
+                    <h3>Sun in Leo</h3>
+                    <p>You radiate confidence and creativity. Your natural leadership inspires others, and you thrive when expressing your unique talents.</p>
+                </div>
+                
+                <div class="planet-card">
+                    <h3>Moon in Scorpio</h3>
+                    <p>Your emotional depth gives you powerful intuition. You form intense connections but need to guard against possessiveness.</p>
+                </div>
+                
+                <div class="planet-card">
+                    <h3>Gemini Ascendant</h3>
+                    <p>You appear curious and adaptable, with quick wit that makes you excellent at communication and networking.</p>
+                </div>
+                
+                <p>Ready to discover your personal chart?</p>
+                
+                <div class="btn-group">
+                    <button class="btn btn-outline" onclick="prevStep(2)">Back</button>
+                    <button class="btn" onclick="nextStep(4)">Get My Reading</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 4: Birth Details Form -->
+        <div class="content-section" id="step4">
+            <div class="glass-card">
+                <h1>Your Birth Details</h1>
+                <p>For an accurate reading, please provide your exact birth information:</p>
+                
+                <form id="birthChartForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" required placeholder="Your full name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="birthDate">Date of Birth</label>
+                        <input type="date" id="birthDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="birthTime">Time of Birth</label>
+                        <input type="time" id="birthTime" required>
+                        <small>If unknown, use 12:00 PM</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="birthPlace">Place of Birth</label>
+                        <input type="text" id="birthPlace" required placeholder="City, Country">
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline" onclick="prevStep(3)">Back</button>
+                        <button type="submit" class="btn">Generate My Chart</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Results Section (Hidden Initially) -->
+        <div class="content-section" id="results">
+            <div class="glass-card">
+                <h1>Your Personal Birth Chart</h1>
+                <div id="resultContent"></div>
+                
+                <!-- Chart Visualization Container -->
+                <div class="chart-container">
+                    <div class="chart-wheel" id="chartWheel">
+                        <!-- Planet markers will be added here by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="chart-legend" id="chartLegend">
+                    <!-- Legend items will be added here by JavaScript -->
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn" onclick="restartJourney()">Start New Reading</button>
+                    <button class="btn btn-outline" onclick="window.print()">
+                        <i class="fas fa-print"></i> Print Chart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        
+        function nextStep(step) {
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            document.querySelector(`.step-circle[data-step="${currentStep}"]`).classList.remove('active');
+            
+            currentStep = step;
+            document.getElementById(`step${currentStep}`).classList.add('active');
+            document.querySelector(`.step-circle[data-step="${currentStep}"]`).classList.add('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function prevStep(step) {
+            nextStep(step);
+        }
+        
+        function restartJourney() {
+            document.getElementById('birthChartForm').reset();
+            document.getElementById('results').classList.remove('active');
+            document.getElementById('resultContent').innerHTML = '';
+            nextStep(1);
+        }
+        
+        document.getElementById('birthChartForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            document.getElementById('birthChartForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const birthDate = document.getElementById('birthDate').value;
+            const birthTime = document.getElementById('birthTime').value;
+            const birthPlace = document.getElementById('birthPlace').value;
+            
+            // Hide form, show results
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            document.getElementById('results').classList.add('active');
+            
+            // Generate sample reading
+            document.getElementById('resultContent').innerHTML = `
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Born:</strong> ${new Date(birthDate).toLocaleDateString()} at ${birthTime}</p>
+                <p><strong>Location:</strong> ${birthPlace}</p>
+            `;
+            
+            // Generate the chart visualization
+            renderBirthChart();
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        function renderBirthChart() {
+            const chartWheel = document.getElementById('chartWheel');
+            const chartLegend = document.getElementById('chartLegend');
+            
+            // Clear previous chart
+            chartWheel.innerHTML = '';
+            chartLegend.innerHTML = '';
+            
+            // Sample planet positions (in degrees)
+            const planets = [
+                { name: 'Sun', symbol: '☉', position: 145, color: '#FFD700' },
+                { name: 'Moon', symbol: '☽', position: 45, color: '#C0C0C0' },
+                { name: 'Mercury', symbol: '☿', position: 120, color: '#A9A9A9' },
+                { name: 'Venus', symbol: '♀', position: 180, color: '#FFA07A' },
+                { name: 'Mars', symbol: '♂', position: 90, color: '#FF6347' },
+                { name: 'Jupiter', symbol: '♃', position: 210, color: '#F4A460' },
+                { name: 'Saturn', symbol: '♄', position: 300, color: '#DAA520' },
+                { name: 'Uranus', symbol: '♅', position: 30, color: '#40E0D0' },
+                { name: 'Neptune', symbol: '♆', position: 270, color: '#4682B4' },
+                { name: 'Pluto', symbol: '♇', position: 240, color: '#9932CC' },
+                { name: 'Asc', symbol: 'AC', position: 15, color: '#9c7cff' }
+            ];
+            
+            // Add planet markers to the chart
+            planets.forEach(planet => {
+                const angle = planet.position * Math.PI / 180;
+                const radius = 45; // Percentage of wheel radius
+                const x = 50 + radius * Math.cos(angle);
+                const y = 50 + radius * Math.sin(angle);
+                
+                const marker = document.createElement('div');
+                marker.className = 'planet-marker';
+                marker.style.left = `${x}%`;
+                marker.style.top = `${y}%`;
+                marker.style.background = planet.color;
+                marker.textContent = planet.symbol;
+                marker.title = planet.name;
+                chartWheel.appendChild(marker);
+                
+                // Add to legend
+                const legendItem = document.createElement('div');
+                legendItem.className = 'legend-item';
+                legendItem.innerHTML = `
+                    <div class="legend-color" style="background: ${planet.color}"></div>
+                    <span>${planet.name} (${planet.position}°)</span>
+                `;
+                chartLegend.appendChild(legendItem);
+            });
+            
+            // Add sample aspect lines
+            const aspects = [
+                { from: 145, to: 45, color: '#FF5555' },  // Sun-Moon
+                { from: 180, to: 90, color: '#55FF55' },   // Venus-Mars
+                { from: 300, to: 15, color: '#5555FF' }    // Saturn-Asc
+            ];
+            
+            aspects.forEach(aspect => {
+                const fromAngle = aspect.from * Math.PI / 180;
+                const toAngle = aspect.to * Math.PI / 180;
+                const centerX = 50;
+                const centerY = 50;
+                const radius = 50;
+                
+                const fromX = centerX + radius * Math.cos(fromAngle);
+                const fromY = centerY + radius * Math.sin(fromAngle);
+                const toX = centerX + radius * Math.cos(toAngle);
+                const toY = centerY + radius * Math.sin(toAngle);
+                
+                const length = Math.sqrt(Math.pow(toX - fromX, 2) + Math.pow(toY - fromY, 2));
+                const angle = Math.atan2(toY - fromY, toX - fromX) * 180 / Math.PI;
+                
+                const line = document.createElement('div');
+                line.className = 'aspect-line';
+                line.style.width = `${length}%`;
+                line.style.background = aspect.color;
+                line.style.transform = `rotate(${angle}deg)`;
+                line.style.opacity = '0.7';
+                chartWheel.appendChild(line);
+            });
+        }
+        
+        // [Rest of your existing JavaScript remains the same]
+        
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
