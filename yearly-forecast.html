@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yearly Cosmic Forecast | Cosmic Insights</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: #0f0c29;
+            background: -webkit-linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Glass Card Style */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            padding: 40px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Cosmic Stars Animation */
+        .cosmic-stars {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+        
+        .star {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%239c7cff"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>') center/contain no-repeat;
+            opacity: 0.7;
+        }
+        
+        .star-1 {
+            animation: twinkle 4s ease-in-out infinite;
+        }
+        
+        .star-2 {
+            animation: twinkle 4s ease-in-out infinite 1s;
+            transform: scale(0.8);
+        }
+        
+        .star-3 {
+            animation: twinkle 4s ease-in-out infinite 2s;
+            transform: scale(0.6);
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+        
+        /* Forecast Meter */
+        .forecast-meter {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+        
+        .forecast-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #6a4cff, #9c7cff, #ff6b6b);
+            border-radius: 10px;
+            width: 0;
+            transition: width 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .forecast-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                rgba(255,255,255,0) 0%, 
+                rgba(255,255,255,0.3) 50%, 
+                rgba(255,255,255,0) 100%);
+            animation: shine 3s infinite;
+        }
+        
+        /* Zodiac Sign */
+        .zodiac-sign {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(156, 124, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            border: 2px solid #9c7cff;
+            transition: all 0.3s ease;
+            margin: 0 auto;
+        }
+        
+        .zodiac-sign:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(156, 124, 255, 0.5);
+        }
+        
+        /* Forecast Aspects */
+        .aspect-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .aspect-card {
+            background: rgba(156, 124, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .aspect-card:hover {
+            transform: translateY(-5px);
+            background: rgba(156, 124, 255, 0.2);
+        }
+        
+        .aspect-card h3 {
+            color: #9c7cff;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1em;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #6a4cff, #9c7cff);
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            color: #9c7cff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #9c7cff;
+            margin: 30px 0 20px;
+            text-align: center;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .forecast-message {
+            font-size: 1.2em;
+            text-align: center;
+            margin: 30px 0;
+            font-style: italic;
+            color: #9c7cff;
+        }
+        
+        .monthly-forecast {
+            margin-top: 40px;
+        }
+        
+        .month-card {
+            background: rgba(106, 76, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #9c7cff;
+        }
+        
+        .month-card h3 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .highlight {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .cosmic-stars {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .zodiac-sign {
+                width: 80px;
+                height: 80px;
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="glass-card">
+            <h1>Yearly Cosmic Forecast</h1>
+            <p>Discover what the stars have in store for you this year. Our celestial analysis reveals key opportunities, challenges, and cosmic influences for your zodiac sign throughout the year.</p>
+            
+            <div class="cosmic-stars">
+                <div class="star star-1"></div>
+                <div class="star star-2"></div>
+                <div class="star star-3"></div>
+            </div>
+            
+            <form id="forecastForm">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" placeholder="Enter your name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="zodiac">Your Zodiac Sign</label>
+                    <select id="zodiac" required>
+                        <option value="">Select your zodiac sign</option>
+                        <option value="aries">Aries ♈ (Mar 21 - Apr 19)</option>
+                        <option value="taurus">Taurus ♉ (Apr 20 - May 20)</option>
+                        <option value="gemini">Gemini ♊ (May 21 - Jun 20)</option>
+                        <option value="cancer">Cancer ♋ (Jun 21 - Jul 22)</option>
+                        <option value="leo">Leo ♌ (Jul 23 - Aug 22)</option>
+                        <option value="virgo">Virgo ♍ (Aug 23 - Sep 22)</option>
+                        <option value="libra">Libra ♎ (Sep 23 - Oct 22)</option>
+                        <option value="scorpio">Scorpio ♏ (Oct 23 - Nov 21)</option>
+                        <option value="sagittarius">Sagittarius ♐ (Nov 22 - Dec 21)</option>
+                        <option value="capricorn">Capricorn ♑ (Dec 22 - Jan 19)</option>
+                        <option value="aquarius">Aquarius ♒ (Jan 20 - Feb 18)</option>
+                        <option value="pisces">Pisces ♓ (Feb 19 - Mar 20)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="focus">What area would you like to focus on?</label>
+                    <select id="focus">
+                        <option value="general">General Yearly Forecast</option>
+                        <option value="career">Career & Finances</option>
+                        <option value="love">Love & Relationships</option>
+                        <option value="health">Health & Wellness</option>
+                        <option value="spiritual">Spiritual Growth</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn">
+                    <i class="fas fa-star"></i> Reveal My Forecast
+                </button>
+            </form>
+        </div>
+        
+        <div id="forecastResults" class="glass-card" style="display: none;">
+            <h1>Your <span id="year"></span> Cosmic Forecast</h1>
+            
+            <div class="cosmic-stars">
+                <div class="star star-1"></div>
+                <div class="star star-2"></div>
+                <div class="star star-3"></div>
+            </div>
+            
+            <div class="zodiac-sign" id="zodiacDisplay"></div>
+            
+            <h2 id="userName"></h2>
+            
+            <div class="forecast-meter">
+                <div class="forecast-bar" id="forecastBar"></div>
+            </div>
+            
+            <p style="text-align: center;" id="overallRating"></p>
+            
+            <div class="forecast-message" id="yearlyTheme"></div>
+            
+            <div class="aspect-grid">
+                <div class="aspect-card">
+                    <h3><i class="fas fa-briefcase"></i> Career & Finances</h3>
+                    <p id="careerForecast"></p>
+                </div>
+                
+                <div class="aspect-card">
+                    <h3><i class="fas fa-heart"></i> Love & Relationships</h3>
+                    <p id="loveForecast"></p>
+                </div>
+                
+                <div class="aspect-card">
+                    <h3><i class="fas fa-heartbeat"></i> Health & Wellness</h3>
+                    <p id="healthForecast"></p>
+                </div>
+                
+                <div class="aspect-card">
+                    <h3><i class="fas fa-moon"></i> Spiritual Growth</h3>
+                    <p id="spiritualForecast"></p>
+                </div>
+            </div>
+            
+            <h2>Monthly Highlights</h2>
+            <div class="monthly-forecast" id="monthlyForecast"></div>
+            
+            <div class="forecast-message" id="adviceMessage"></div>
+            
+            <button class="btn" onclick="resetForecastForm()">
+                <i class="fas fa-redo"></i> New Forecast
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Forecast data
+        const forecastData = {
+            general: {
+                aries: { rating: 85, theme: "A year of bold new beginnings", career: "Exciting opportunities will emerge in spring", love: "Passionate connections likely in summer", health: "Focus on stress management", spiritual: "Time to trust your instincts" },
+                taurus: { rating: 78, theme: "A year of steady growth", career: "Financial stability improves", love: "Deepening of existing bonds", health: "Good overall with need for routine", spiritual: "Grounding practices beneficial" },
+                // Add all other signs...
+            },
+            // Add other focus areas...
+        };
+        
+        // Monthly forecast data
+        const monthlyForecasts = [
+            { month: "January", highlight: "New opportunities emerge as Mars aligns with your sign" },
+            { month: "February", highlight: "Financial decisions require careful consideration" },
+            { month: "March", highlight: "Social connections bring unexpected benefits" },
+            { month: "April", highlight: "Career advancement possible with Mercury in your favor" },
+            { month: "May", highlight: "Creative projects flourish under this month's full moon" },
+            { month: "June", highlight: "Relationships deepen during Venus retrograde" },
+            { month: "July", highlight: "Health focus brings renewed energy" },
+            { month: "August", highlight: "Financial gains likely with Jupiter's blessing" },
+            { month: "September", highlight: "Spiritual awakening begins with equinox energy" },
+            { month: "October", highlight: "Communication skills lead to breakthroughs" },
+            { month: "November", highlight: "Family matters require attention and patience" },
+            { month: "December", highlight: "Year ends on high note with Saturn's support" }
+        ];
+        
+        // Advice messages
+        const adviceMessages = [
+            "Trust the universe's timing - everything unfolds as it should",
+            "Practice gratitude daily to attract more abundance",
+            "Stay open to unexpected opportunities this year",
+            "Your intuition will be strong - listen to it carefully",
+            "Balance action with reflection for optimal results"
+        ];
+        
+        // Form submission
+        document.getElementById('forecastForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            generateForecast();
+        });
+        
+        function generateForecast() {
+            const name = document.getElementById('name').value;
+            const zodiac = document.getElementById('zodiac').value;
+            const focus = document.getElementById('focus').value;
+            const currentYear = new Date().getFullYear();
+            
+            // Display name and zodiac
+            document.getElementById('userName').textContent = name;
+            document.getElementById('year').textContent = currentYear;
+            document.getElementById('zodiacDisplay').textContent = getSignSymbol(zodiac);
+            
+            // Calculate random rating for demo (70-100 for positive forecast)
+            const rating = Math.floor(Math.random() * 31) + 70;
+            
+            // Update forecast meter
+            const bar = document.getElementById('forecastBar');
+            bar.style.width = `${rating}%`;
+            
+            // Set rating text
+            document.getElementById('overallRating').textContent = 
+                `${rating}% Positive Cosmic Energy`;
+            
+            // Generate forecast based on zodiac sign
+            generateZodiacForecast(zodiac, focus);
+            
+            // Generate monthly forecast
+            generateMonthlyForecast();
+            
+            // Set advice message
+            document.getElementById('adviceMessage').textContent = 
+                adviceMessages[Math.floor(Math.random() * adviceMessages.length)];
+            
+            // Show results
+            document.getElementById('forecastResults').style.display = 'block';
+            document.getElementById('forecastResults').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function generateZodiacForecast(zodiac, focus) {
+            // Sample forecasts - in real app use actual astrological data
+            const themes = {
+                aries: "A dynamic year with opportunities for leadership and new ventures",
+                taurus: "A stable year focusing on building security and comfort",
+                gemini: "A communicative year with learning and social connections",
+                cancer: "An emotional year with family and home focus",
+                leo: "A creative year with self-expression and romance",
+                virgo: "An organized year with health and service focus",
+                libra: "A harmonious year with partnerships and beauty",
+                scorpio: "A transformative year with deep changes",
+                sagittarius: "An adventurous year with travel and expansion",
+                capricorn: "A ambitious year with career focus",
+                aquarius: "An innovative year with friendships and causes",
+                pisces: "A spiritual year with intuition and compassion"
+            };
+            
+            const careerForecasts = {
+                aries: "Mars energizes your career sector - perfect for bold moves and leadership roles.",
+                taurus: "Venus blesses your finances - steady growth and possible windfalls.",
+                gemini: "Mercury boosts communication - ideal for negotiations and networking.",
+                cancer: "Moon influences favor home-based businesses and real estate.",
+                leo: "Sun shines on your creative projects - monetize your talents.",
+                virgo: "Mercury helps with organization - systems bring financial rewards.",
+                libra: "Venus enhances partnerships - collaborative efforts succeed.",
+                scorpio: "Pluto transforms your finances - investments may pay off.",
+                sagittarius: "Jupiter expands opportunities - especially in education.",
+                capricorn: "Saturn structures your career - hard work brings promotion.",
+                aquarius: "Uranus sparks innovation - tech fields favored.",
+                pisces: "Neptune inspires creative income streams - trust intuition."
+            };
+            
+            const loveForecasts = {
+                aries: "Passionate encounters likely - be open to spontaneous connections.",
+                taurus: "Steady relationships deepen - singles may meet long-term partners.",
+                gemini: "Social circles bring romantic possibilities - communication key.",
+                cancer: "Emotional bonds strengthen - family matters influence love life.",
+                leo: "Romance blooms - creative dates enhance relationships.",
+                virgo: "Practical approach to love serves you well - don't overanalyze.",
+                libra: "Partnerships flourish - balance is essential.",
+                scorpio: "Intense connections transform you - vulnerability brings depth.",
+                sagittarius: "Adventure in love - travel may bring special someone.",
+                capricorn: "Serious commitments possible - take relationships step by step.",
+                aquarius: "Unconventional attractions - friendships may turn romantic.",
+                pisces: "Deep spiritual connections - soulmate energy strong."
+            };
+            
+            const healthForecasts = {
+                aries: "Focus on stress management - physical activity crucial.",
+                taurus: "Grounding practices help - watch for overindulgence.",
+                gemini: "Mental health focus - variety keeps you engaged.",
+                cancer: "Emotional wellbeing tied to physical health - self-care needed.",
+                leo: "Heart health important - balance activity with rest.",
+                virgo: "Digestive health focus - routines benefit you.",
+                libra: "Kidney and skin care - balance is preventative medicine.",
+                scorpio: "Reproductive health focus - transformation possible.",
+                sagittarius: "Liver and hip health - moderation in all things.",
+                capricorn: "Bone and joint care - structure supports health.",
+                aquarius: "Circulatory system focus - innovation in health routines.",
+                pisces: "Immune system and feet - spiritual practices heal."
+            };
+            
+            const spiritualForecasts = {
+                aries: "Courage to follow your path - warrior energy strong.",
+                taurus: "Connection to earth and nature brings spiritual growth.",
+                gemini: "Learning new spiritual concepts expands consciousness.",
+                cancer: "Ancestral connections and home rituals nourish soul.",
+                leo: "Creative expression as spiritual practice - shine your light.",
+                virgo: "Service to others brings spiritual fulfillment.",
+                libra: "Finding harmony within leads to outer peace.",
+                scorpio: "Deep transformation through shadow work.",
+                sagittarius: "Philosophical exploration expands beliefs.",
+                capricorn: "Discipline in practice brings enlightenment.",
+                aquarius: "Collective consciousness work - visionary insights.",
+                pisces: "Mystical experiences likely - trust your visions."
+            };
+            
+            // Set yearly theme
+            document.getElementById('yearlyTheme').textContent = 
+                `Your yearly theme: "${themes[zodiac]}"`;
+            
+            // Set focus-specific forecasts
+            if (focus === 'career') {
+                document.getElementById('careerForecast').textContent = careerForecasts[zodiac];
+                document.getElementById('loveForecast').textContent = "Focus area: Career & Finances";
+                document.getElementById('healthForecast').textContent = "Secondary focus this year";
+                document.getElementById('spiritualForecast').textContent = "Supporting your goals";
+            } 
+            else if (focus === 'love') {
+                document.getElementById('careerForecast').textContent = "Supporting your relationships";
+                document.getElementById('loveForecast').textContent = loveForecasts[zodiac];
+                document.getElementById('healthForecast').textContent = "Emotional wellbeing affects physical";
+                document.getElementById('spiritualForecast').textContent = "Heart-centered growth";
+            }
+            else if (focus === 'health') {
+                document.getElementById('careerForecast').textContent = "Work-life balance important";
+                document.getElementById('loveForecast').textContent = "Health affects relationships";
+                document.getElementById('healthForecast').textContent = healthForecasts[zodiac];
+                document.getElementById('spiritualForecast').textContent = "Healing on all levels";
+            }
+            else if (focus === 'spiritual') {
+                document.getElementById('careerForecast').textContent = "Purpose aligns with work";
+                document.getElementById('loveForecast').textContent = "Soul connections likely";
+                document.getElementById('healthForecast').textContent = "Mind-body-spirit connection";
+                document.getElementById('spiritualForecast').textContent = spiritualForecasts[zodiac];
+            }
+            else { // general
+                document.getElementById('careerForecast').textContent = careerForecasts[zodiac];
+                document.getElementById('loveForecast').textContent = loveForecasts[zodiac];
+                document.getElementById('healthForecast').textContent = healthForecasts[zodiac];
+                document.getElementById('spiritualForecast').textContent = spiritualForecasts[zodiac];
+            }
+        }
+        
+        function generateMonthlyForecast() {
+            const monthlyContainer = document.getElementById('monthlyForecast');
+            monthlyContainer.innerHTML = '';
+            
+            monthlyForecasts.forEach(month => {
+                const card = document.createElement('div');
+                card.className = 'month-card';
+                card.innerHTML = `
+                    <h3><i class="fas fa-calendar-alt"></i> ${month.month}</h3>
+                    <p><span class="highlight">Cosmic Highlight:</span> ${month.highlight}</p>
+                `;
+                monthlyContainer.appendChild(card);
+            });
+        }
+        
+        function getSignSymbol(sign) {
+            const symbols = {
+                aries: '♈', taurus: '♉', gemini: '♊', cancer: '♋',
+                leo: '♌', virgo: '♍', libra: '♎', scorpio: '♏',
+                sagittarius: '♐', capricorn: '♑', aquarius: '♒', pisces: '♓'
+            };
+            return symbols[sign] || '☆';
+        }
+        
+        function resetForecastForm() {
+            document.getElementById('forecastForm').reset();
+            document.getElementById('forecastResults').style.display = 'none';
+            document.getElementById('forecastBar').style.width = '0';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Set current year
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
