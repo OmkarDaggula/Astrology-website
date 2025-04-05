@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numerology Report | Cosmic Insights</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: #0f0c29;
+            background: -webkit-linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Glass Card Style */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            padding: 40px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Cosmic Gateway Animation */
+        .cosmic-gateway {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 40px;
+            position: relative;
+            perspective: 1000px;
+        }
+        
+        .gateway-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: spin 20s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+        
+        .gateway-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid;
+            opacity: 0.7;
+        }
+        
+        .gateway-layer:nth-child(1) {
+            border-color: #9c7cff;
+            transform: rotateY(0deg);
+        }
+        
+        .gateway-layer:nth-child(2) {
+            border-color: #6a4cff;
+            transform: rotateY(45deg);
+        }
+        
+        .gateway-layer:nth-child(3) {
+            border-color: #ff6b6b;
+            transform: rotateY(90deg);
+        }
+        
+        .gateway-layer:nth-child(4) {
+            border-color: #4cffb5;
+            transform: rotateY(135deg);
+        }
+        
+        /* Number Grid */
+        .number-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .number-cell {
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .number-cell:hover {
+            transform: scale(1.05);
+            background: rgba(156, 124, 255, 0.2);
+        }
+        
+        .number-cell.active {
+            background: #9c7cff;
+            color: white;
+            box-shadow: 0 0 20px rgba(156, 124, 255, 0.5);
+        }
+        
+        .number-cell::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 60%, rgba(156, 124, 255, 0.3) 100%);
+        }
+        
+        /* Results Display */
+        .result-display {
+            margin-top: 40px;
+            display: none;
+        }
+        
+        .core-number {
+            font-size: 5em;
+            font-weight: bold;
+            color: #9c7cff;
+            text-align: center;
+            margin: 20px 0;
+            text-shadow: 0 0 15px rgba(156, 124, 255, 0.5);
+        }
+        
+        .number-meaning {
+            background: rgba(156, 124, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1em;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #9c7cff, #6a4cff);
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            color: #9c7cff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .number-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .cosmic-gateway {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .core-number {
+                font-size: 3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="glass-card">
+            <h1>Numerology Report</h1>
+            <p>Discover the hidden meanings and vibrations in your name and birth date through the ancient science of numerology.</p>
+            
+            <div class="cosmic-gateway">
+                <div class="gateway-inner">
+                    <div class="gateway-layer"></div>
+                    <div class="gateway-layer"></div>
+                    <div class="gateway-layer"></div>
+                    <div class="gateway-layer"></div>
+                </div>
+            </div>
+            
+            <p>Each number carries a unique energy that influences your life path, personality, and destiny.</p>
+            
+            <div class="number-grid">
+                <div class="number-cell" data-number="1">1</div>
+                <div class="number-cell" data-number="2">2</div>
+                <div class="number-cell" data-number="3">3</div>
+                <div class="number-cell" data-number="4">4</div>
+                <div class="number-cell" data-number="5">5</div>
+                <div class="number-cell" data-number="6">6</div>
+                <div class="number-cell" data-number="7">7</div>
+                <div class="number-cell" data-number="8">8</div>
+                <div class="number-cell" data-number="9">9</div>
+            </div>
+            
+            <p>Select a number above to explore its meaning, or enter your details below for a personalized reading.</p>
+            
+            <form id="numerologyForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name (as given at birth)</label>
+                    <input type="text" id="fullName" required placeholder="Enter your full birth name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="birthDate">Date of Birth</label>
+                    <input type="date" id="birthDate" required>
+                </div>
+                
+                <button type="submit" class="btn">Calculate My Numbers</button>
+            </form>
+        </div>
+        
+        <div id="numerologyResults" class="result-display glass-card">
+            <h1>Your Numerology Report</h1>
+            
+            <div class="cosmic-gateway">
+                <div class="gateway-inner">
+                    <div class="gateway-layer"></div>
+                    <div class="gateway-layer"></div>
+                    <div class="gateway-layer"></div>
+                    <div class="gateway-layer"></div>
+                    <div class="core-number" id="lifePathNumber"></div>
+                </div>
+            </div>
+            
+            <h2 style="text-align: center;">Your Life Path Number: <span id="lifePathNumberText"></span></h2>
+            
+            <div class="number-meaning">
+                <h3>Life Path Number Meaning</h3>
+                <p id="lifePathMeaning"></p>
+            </div>
+            
+            <div class="number-grid" id="otherNumbers"></div>
+            
+            <div id="additionalReadings"></div>
+            
+            <button class="btn" onclick="resetForm()">Calculate Another</button>
+        </div>
+    </div>
+
+    <script>
+        // Number meanings database
+        const numberMeanings = {
+            1: "The Leader - Independent, creative, and original. You're a pioneer with strong willpower and determination.",
+            2: "The Diplomat - Cooperative, sensitive, and intuitive. You excel in partnerships and bring harmony to situations.",
+            3: "The Communicator - Expressive, artistic, and joyful. You have a gift for self-expression and creativity.",
+            4: "The Builder - Practical, organized, and disciplined. You create solid foundations and value hard work.",
+            5: "The Freedom Seeker - Adventurous, adaptable, and progressive. You thrive on change and new experiences.",
+            6: "The Nurturer - Responsible, protective, and compassionate. You excel in caregiving and creating harmony.",
+            7: "The Seeker - Spiritual, analytical, and introspective. You're drawn to mysteries and inner wisdom.",
+            8: "The Powerhouse - Ambitious, efficient, and goal-oriented. You have strong executive abilities and manifest well.",
+            9: "The Humanitarian - Compassionate, generous, and idealistic. You're drawn to service and global consciousness."
+        };
+        
+        // Number colors for visualization
+        const numberColors = {
+            1: "#FF5555", 2: "#FFA500", 3: "#FFD700", 
+            4: "#9c7cff", 5: "#4CAF50", 6: "#2196F3",
+            7: "#673AB7", 8: "#E91E63", 9: "#00BCD4"
+        };
+        
+        // Set up number grid interactions
+        document.querySelectorAll('.number-cell').forEach(cell => {
+            cell.addEventListener('click', function() {
+                const number = this.getAttribute('data-number');
+                showNumberMeaning(number);
+            });
+        });
+        
+        // Form submission
+        document.getElementById('numerologyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateNumerology();
+        });
+        
+        function showNumberMeaning(number) {
+            alert(`Number ${number} Meaning:\n\n${numberMeanings[number]}`);
+        }
+        
+        function calculateNumerology() {
+            const fullName = document.getElementById('fullName').value;
+            const birthDate = new Date(document.getElementById('birthDate').value);
+            
+            // Calculate Life Path Number (simplified)
+            const lifePathNumber = calculateLifePathNumber(birthDate);
+            
+            // Display results
+            document.getElementById('lifePathNumber').textContent = lifePathNumber;
+            document.getElementById('lifePathNumberText').textContent = lifePathNumber;
+            document.getElementById('lifePathMeaning').textContent = numberMeanings[lifePathNumber];
+            
+            // Style the core number
+            document.getElementById('lifePathNumber').style.color = numberColors[lifePathNumber];
+            document.getElementById('lifePathNumberText').style.color = numberColors[lifePathNumber];
+            
+            // Generate other important numbers
+            generateOtherNumbers(fullName, birthDate, lifePathNumber);
+            
+            // Show results
+            document.getElementById('numerologyResults').style.display = 'block';
+            document.getElementById('numerologyResults').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function calculateLifePathNumber(date) {
+            // Simplified calculation - sum all digits of the date
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+            
+            let sum = day + month + year;
+            while (sum > 9 && sum !== 11 && sum !== 22) { // Keep 11 and 22 as master numbers
+                sum = sum.toString().split('').reduce((a, b) => parseInt(a) + parseInt(b));
+            }
+            
+            return sum;
+        }
+        
+        function generateOtherNumbers(fullName, birthDate, lifePathNumber) {
+            const otherNumbersContainer = document.getElementById('otherNumbers');
+            otherNumbersContainer.innerHTML = '';
+            
+            // Generate sample other numbers (in a real app, these would be calculated)
+            const otherNumbers = [
+                { name: 'Destiny', number: 5 },
+                { name: 'Soul', number: 7 },
+                { name: 'Personality', number: 3 },
+                { name: 'Maturity', number: 9 },
+                { name: 'Balance', number: 2 },
+                { name: 'Rational', number: 6 }
+            ];
+            
+            otherNumbers.forEach(item => {
+                const cell = document.createElement('div');
+                cell.className = 'number-cell';
+                cell.style.background = numberColors[item.number];
+                cell.innerHTML = `
+                    <div style="text-align: center;">
+                        <div style="font-size: 0.8em; opacity: 0.8;">${item.name}</div>
+                        <div style="font-size: 1.5em; font-weight: bold;">${item.number}</div>
+                    </div>
+                `;
+                cell.addEventListener('click', () => {
+                    showNumberMeaning(item.number);
+                });
+                otherNumbersContainer.appendChild(cell);
+            });
+            
+            // Add additional readings
+            const additionalReadings = document.getElementById('additionalReadings');
+            // console.log(lifePathNumber)
+            additionalReadings.innerHTML = `
+                <div class="number-meaning">
+                    <h3>Your Name Analysis</h3>
+                    <p>Your name "${fullName}" contains powerful vibrations that enhance your ${lifePathNumber} energy, 
+                    giving you natural ${lifePathNumber < 5 ? 'practical' : 'creative'} abilities and 
+                    ${lifePathNumber % 2 === 0 ? 'harmonious' : 'dynamic'} expression.</p>
+                </div>
+                
+                <div class="number-meaning">
+                    <h3>Current Year Forecast</h3>
+                    <p>This year (${new Date().getFullYear()}) is a ${(lifePathNumber + new Date().getFullYear()) % 9 || 9} year for you, 
+                    indicating a period of ${lifePathNumber < 5 ? 'new beginnings' : 'creative expansion'} 
+                    and ${lifePathNumber % 2 === 0 ? 'relationship growth' : 'personal development'}.</p>
+                </div>
+            `;
+        }
+        
+        function resetForm() {
+            document.getElementById('numerologyForm').reset();
+            document.getElementById('numerologyResults').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

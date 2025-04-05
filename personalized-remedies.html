@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Cosmic Remedies | Cosmic Insights</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: #0f0c29;
+            background: -webkit-linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Glass Card Style */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            padding: 40px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Cosmic Crystals Animation */
+        .cosmic-crystals {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+        
+        .crystal {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%239c7cff"><path d="M17.66 11.2c-.23-.3-.51-.56-.77-.82-.67-.6-1.43-1.03-2.07-1.66C13.33 7.26 13 4.85 13.95 3c-.95.23-1.78.75-2.49 1.32-2.59 2.08-3.61 5.75-2.39 8.9.04.1.08.2.08.3 0 .14-.2.35-.19.53-.22l.38-.01c.28 0 .57-.07.84-.17.22-.07.46-.13.68-.2.45-.13.94-.23 1.44-.12.78.12 1.53.69 1.73 1.39.2.7-.02 1.49-.43 2.09-.74 1.11-2.06 1.48-3.33 1.29-.81-.13-1.54-.57-2.06-1.19-.71-.85-.94-2-.82-3.04.13-1.14.71-2.22 1.39-3.15.36-.5.8-.98 1.26-1.42 1.48-1.34 3.35-2.17 5.37-2.21 1.54-.02 3 .45 4.23 1.24.65.42 1.25.95 1.73 1.54l-2.64 2.9-.01.01z"/></svg>') center/contain no-repeat;
+            opacity: 0.7;
+        }
+        
+        .crystal-1 {
+            animation: glow 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 5px #9c7cff);
+        }
+        
+        .crystal-2 {
+            animation: glow 4s ease-in-out infinite 1s;
+            transform: scale(0.8);
+            filter: drop-shadow(0 0 5px #6a4cff);
+        }
+        
+        .crystal-3 {
+            animation: glow 4s ease-in-out infinite 2s;
+            transform: scale(0.6);
+            filter: drop-shadow(0 0 5px #ff6b6b);
+        }
+        
+        @keyframes glow {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+        
+        /* Remedy Power Meter */
+        .power-meter {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+        
+        .power-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #6a4cff, #9c7cff, #ff6b6b);
+            border-radius: 10px;
+            width: 0;
+            transition: width 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .power-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                rgba(255,255,255,0) 0%, 
+                rgba(255,255,255,0.3) 50%, 
+                rgba(255,255,255,0) 100%);
+            animation: shine 3s infinite;
+        }
+        
+        /* Zodiac Sign */
+        .zodiac-sign {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(156, 124, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            border: 2px solid #9c7cff;
+            transition: all 0.3s ease;
+            margin: 0 auto;
+        }
+        
+        .zodiac-sign:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(156, 124, 255, 0.5);
+        }
+        
+        /* Remedy Cards */
+        .remedy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .remedy-card {
+            background: rgba(156, 124, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            border-left: 4px solid #9c7cff;
+        }
+        
+        .remedy-card:hover {
+            transform: translateY(-5px);
+            background: rgba(156, 124, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .remedy-card h3 {
+            color: #9c7cff;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1em;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #6a4cff, #9c7cff);
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            color: #9c7cff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #9c7cff;
+            margin: 30px 0 20px;
+            text-align: center;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .remedy-message {
+            font-size: 1.2em;
+            text-align: center;
+            margin: 30px 0;
+            font-style: italic;
+            color: #9c7cff;
+        }
+        
+        .highlight {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+        
+        .remedy-type {
+            margin-top: 40px;
+        }
+        
+        .remedy-detail {
+            background: rgba(106, 76, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .remedy-detail h3 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .cosmic-crystals {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .zodiac-sign {
+                width: 80px;
+                height: 80px;
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="glass-card">
+            <h1>Personalized Cosmic Remedies</h1>
+            <p>Discover celestial solutions tailored to your unique astrological profile. Our cosmic remedies help balance energies, overcome challenges, and enhance your spiritual journey.</p>
+            
+            <div class="cosmic-crystals">
+                <div class="crystal crystal-1"></div>
+                <div class="crystal crystal-2"></div>
+                <div class="crystal crystal-3"></div>
+            </div>
+            
+            <form id="remedyForm">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" placeholder="Enter your name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="zodiac">Your Zodiac Sign</label>
+                    <select id="zodiac" required>
+                        <option value="">Select your zodiac sign</option>
+                        <option value="aries">Aries ♈ (Mar 21 - Apr 19)</option>
+                        <option value="taurus">Taurus ♉ (Apr 20 - May 20)</option>
+                        <option value="gemini">Gemini ♊ (May 21 - Jun 20)</option>
+                        <option value="cancer">Cancer ♋ (Jun 21 - Jul 22)</option>
+                        <option value="leo">Leo ♌ (Jul 23 - Aug 22)</option>
+                        <option value="virgo">Virgo ♍ (Aug 23 - Sep 22)</option>
+                        <option value="libra">Libra ♎ (Sep 23 - Oct 22)</option>
+                        <option value="scorpio">Scorpio ♏ (Oct 23 - Nov 21)</option>
+                        <option value="sagittarius">Sagittarius ♐ (Nov 22 - Dec 21)</option>
+                        <option value="capricorn">Capricorn ♑ (Dec 22 - Jan 19)</option>
+                        <option value="aquarius">Aquarius ♒ (Jan 20 - Feb 18)</option>
+                        <option value="pisces">Pisces ♓ (Feb 19 - Mar 20)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="concern">What area would you like remedies for?</label>
+                    <select id="concern">
+                        <option value="general">General Energy Balance</option>
+                        <option value="health">Health & Wellness</option>
+                        <option value="love">Love & Relationships</option>
+                        <option value="career">Career & Finances</option>
+                        <option value="spiritual">Spiritual Growth</option>
+                        <option value="protection">Protection & Cleansing</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn">
+                    <i class="fas fa-crystal"></i> Reveal My Remedies
+                </button>
+            </form>
+        </div>
+        
+        <div id="remedyResults" class="glass-card" style="display: none;">
+            <h1>Your Personalized Cosmic Remedies</h1>
+            
+            <div class="cosmic-crystals">
+                <div class="crystal crystal-1"></div>
+                <div class="crystal crystal-2"></div>
+                <div class="crystal crystal-3"></div>
+            </div>
+            
+            <div class="zodiac-sign" id="zodiacDisplay"></div>
+            
+            <h2 id="userName"></h2>
+            
+            <div class="power-meter">
+                <div class="power-bar" id="powerBar"></div>
+            </div>
+            
+            <p style="text-align: center;" id="effectivenessRating"></p>
+            
+            <div class="remedy-message" id="cosmicGuidance"></div>
+            
+            <div class="remedy-grid">
+                <div class="remedy-card">
+                    <h3><i class="fas fa-gem"></i> Crystal Recommendations</h3>
+                    <p id="crystalRemedy"></p>
+                </div>
+                
+                <div class="remedy-card">
+                    <h3><i class="fas fa-moon"></i> Lunar Practices</h3>
+                    <p id="lunarRemedy"></p>
+                </div>
+                
+                <div class="remedy-card">
+                    <h3><i class="fas fa-seedling"></i> Herbal Solutions</h3>
+                    <p id="herbalRemedy"></p>
+                </div>
+                
+                <div class="remedy-card">
+                    <h3><i class="fas fa-praying-hands"></i> Mantras & Affirmations</h3>
+                    <p id="mantraRemedy"></p>
+                </div>
+            </div>
+            
+            <div class="remedy-type">
+                <h2>Detailed Remedies</h2>
+                <div class="remedy-detail">
+                    <h3><i class="fas fa-star"></i> Planetary Alignment Remedies</h3>
+                    <p id="planetaryRemedy"></p>
+                </div>
+                
+                <div class="remedy-detail">
+                    <h3><i class="fas fa-burn"></i> Rituals & Practices</h3>
+                    <p id="ritualRemedy"></p>
+                </div>
+                
+                <div class="remedy-detail">
+                    <h3><i class="fas fa-utensils"></i> Dietary Recommendations</h3>
+                    <p id="dietRemedy"></p>
+                </div>
+            </div>
+            
+            <div class="remedy-message" id="timingAdvice"></div>
+            
+            <button class="btn" onclick="resetRemedyForm()">
+                <i class="fas fa-redo"></i> New Remedy Analysis
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Remedy data
+        const remedyData = {
+            general: {
+                aries: { 
+                    crystals: "Carnelian, Bloodstone, Red Jasper - carry in your pocket or wear as jewelry",
+                    lunar: "Perform energy-clearing rituals during the new moon",
+                    herbal: "Ginger tea daily to boost your fiery energy",
+                    mantras: "I am strong, confident, and protected by cosmic forces",
+                    planetary: "Mars alignment: Wear red on Tuesdays, donate iron items",
+                    ritual: "Light a red candle with cinnamon oil for 11 minutes daily",
+                    diet: "Spicy foods, protein-rich meals, avoid excessive alcohol"
+                },
+                taurus: { 
+                    crystals: "Rose Quartz, Emerald, Malachite - place under your pillow",
+                    lunar: "Full moon gratitude rituals with green candles",
+                    herbal: "Lavender and chamomile tea for grounding",
+                    mantras: "I attract abundance and stability effortlessly",
+                    planetary: "Venus alignment: Wear green on Fridays, offer flowers to water",
+                    ritual: "Bury a green candle with your wishes in earth for 7 days",
+                    diet: "Leafy greens, sweet fruits, avoid processed foods"
+                },
+                // Add all other signs...
+            },
+            // Add other concern areas...
+        };
+        
+        // Guidance messages
+        const guidanceMessages = [
+            "The cosmos have heard your request and offer these sacred remedies",
+            "These celestial solutions will help align your energy with universal flow",
+            "The stars whisper these remedies to balance your spiritual energy",
+            "Cosmic forces align to bring you these powerful solutions",
+            "The universe provides these remedies to support your journey"
+        ];
+        
+        // Timing advice
+        const timingAdvice = [
+            "Best performed during waxing moon for attracting energy",
+            "Most effective when done at sunrise or sunset",
+            "Ideal timing is during your zodiac season for maximum effect",
+            "Practice daily for 40 days to see full results",
+            "Combine with meditation for amplified effects"
+        ];
+        
+        // Form submission
+        document.getElementById('remedyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            generateRemedies();
+        });
+        
+        function generateRemedies() {
+            const name = document.getElementById('name').value;
+            const zodiac = document.getElementById('zodiac').value;
+            const concern = document.getElementById('concern').value;
+            
+            // Display name and zodiac
+            document.getElementById('userName').textContent = name;
+            document.getElementById('zodiacDisplay').textContent = getSignSymbol(zodiac);
+            
+            // Calculate random effectiveness for demo (75-100%)
+            const effectiveness = Math.floor(Math.random() * 26) + 75;
+            
+            // Update power meter
+            const bar = document.getElementById('powerBar');
+            bar.style.width = `${effectiveness}%`;
+            
+            // Set effectiveness text
+            document.getElementById('effectivenessRating').textContent = 
+                `${effectiveness}% Cosmic Effectiveness`;
+            
+            // Set guidance message
+            document.getElementById('cosmicGuidance').textContent = 
+                guidanceMessages[Math.floor(Math.random() * guidanceMessages.length)];
+            
+            // Generate remedies based on zodiac sign and concern
+            generateZodiacRemedies(zodiac, concern);
+            
+            // Set timing advice
+            document.getElementById('timingAdvice').textContent = 
+                timingAdvice[Math.floor(Math.random() * timingAdvice.length)];
+            
+            // Show results
+            document.getElementById('remedyResults').style.display = 'block';
+            document.getElementById('remedyResults').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function generateZodiacRemedies(zodiac, concern) {
+            // Sample remedies - in real app use actual astrological data
+            const crystalRemedies = {
+                aries: "Red crystals like Carnelian to boost your natural courage and vitality",
+                taurus: "Green crystals like Emerald to enhance your connection to abundance",
+                gemini: "Yellow crystals like Citrine to stimulate your mental clarity",
+                cancer: "White crystals like Moonstone to soothe emotional sensitivity",
+                leo: "Gold crystals like Pyrite to amplify your creative fire",
+                virgo: "Brown crystals like Smoky Quartz to ground your nervous energy",
+                libra: "Pink crystals like Rose Quartz to balance your relationships",
+                scorpio: "Black crystals like Black Tourmaline for protection and transformation",
+                sagittarius: "Blue crystals like Lapis Lazuli to expand your wisdom",
+                capricorn: "Grey crystals like Hematite to strengthen your discipline",
+                aquarius: "Multicolor crystals like Labradorite to inspire innovation",
+                pisces: "Purple crystals like Amethyst to deepen your intuition"
+            };
+            
+            const lunarRemedies = {
+                aries: "New moon fire rituals to launch new projects",
+                taurus: "Full moon earth rituals to manifest stability",
+                gemini: "First quarter moon communication rituals",
+                cancer: "Moon bathing during full moon for emotional healing",
+                leo: "Solar rituals at noon to amplify personal power",
+                virgo: "Waning moon cleansing rituals for purification",
+                libra: "Equinox balance rituals for harmony",
+                scorpio: "Dark moon shadow work for transformation",
+                sagittarius: "Sagittarius full moon adventure rituals",
+                capricorn: "Solstice discipline rituals for goals",
+                aquarius: "Aquarius full moon innovation rituals",
+                pisces: "Pisces full moon dream work rituals"
+            };
+            
+            const herbalRemedies = {
+                aries: "Ginger, garlic, and cayenne to stoke your inner fire",
+                taurus: "Lavender, rose, and chamomile for grounding calm",
+                gemini: "Peppermint, lemon balm, and ginkgo for mental clarity",
+                cancer: "Chamomile, jasmine, and lotus for emotional balance",
+                leo: "Cinnamon, rosemary, and saffron for creative expression",
+                virgo: "Fennel, dandelion, and milk thistle for digestive health",
+                libra: "Rose, hibiscus, and elderflower for relationship harmony",
+                scorpio: "Mugwort, patchouli, and myrrh for transformation",
+                sagittarius: "Sage, juniper, and clove for wisdom and adventure",
+                capricorn: "Thyme, comfrey, and horsetail for bone strength",
+                aquarius: "Eucalyptus, lavender, and valerian for nervous system",
+                pisces: "Lavender, chamomile, and passionflower for dream work"
+            };
+            
+            const mantraRemedies = {
+                aries: "I am a courageous leader guided by divine wisdom",
+                taurus: "I attract abundance effortlessly and gracefully",
+                gemini: "My mind is clear and my communication is inspired",
+                cancer: "I nurture myself as I nurture others",
+                leo: "My creative light shines brightly and inspires others",
+                virgo: "I am perfectly organized in body, mind and spirit",
+                libra: "Harmony and balance flow through all my relationships",
+                scorpio: "I transform challenges into powerful growth",
+                sagittarius: "My path is illuminated with wisdom and adventure",
+                capricorn: "I achieve my goals with disciplined ease",
+                aquarius: "I innovate and inspire with my unique vision",
+                pisces: "I trust my intuition and divine guidance"
+            };
+            
+            const planetaryRemedies = {
+                aries: "Mars: Wear red, donate iron items, fast on Tuesdays",
+                taurus: "Venus: Wear green, offer flowers, practice beauty rituals",
+                gemini: "Mercury: Wear yellow, recite mantras, donate books",
+                cancer: "Moon: Wear white, offer milk, moon bathing",
+                leo: "Sun: Wear gold, sun gazing at sunrise, sunflower offerings",
+                virgo: "Mercury: Wear earth tones, herbal cleansing, donate food",
+                libra: "Venus: Wear pink, rose petal baths, harmony mantras",
+                scorpio: "Pluto: Wear black, transformational journaling, dark moon rituals",
+                sagittarius: "Jupiter: Wear blue, wisdom sharing, charitable acts",
+                capricorn: "Saturn: Wear grey, disciplined practice, elder respect",
+                aquarius: "Uranus: Wear electric colors, innovation practices, group healing",
+                pisces: "Neptune: Wear purple, dream journaling, water offerings"
+            };
+            
+            const ritualRemedies = {
+                aries: "Fire ritual: Write limiting beliefs on paper and burn safely",
+                taurus: "Earth ritual: Plant seeds with your intentions in fertile soil",
+                gemini: "Air ritual: Release written worries to the wind from high place",
+                cancer: "Water ritual: Float flower offerings in moving water with prayers",
+                leo: "Sun ritual: Charge crystals and water in sunlight with affirmations",
+                virgo: "Cleansing ritual: Sweep your home with salt water from back to front",
+                libra: "Balance ritual: Weigh decisions with scales and rose petals",
+                scorpio: "Transformation ritual: Bury an old self-image item in cemetery",
+                sagittarius: "Adventure ritual: Take a sacred journey with purposeful intent",
+                capricorn: "Discipline ritual: 40-day vow with incremental progress",
+                aquarius: "Innovation ritual: Create a future-self vision board",
+                pisces: "Dream ritual: Place amethyst and dream journal by bedside"
+            };
+            
+            const dietRemedies = {
+                aries: "Protein-rich foods, spicy dishes, avoid excessive stimulants",
+                taurus: "Leafy greens, sweet fruits, avoid processed foods",
+                gemini: "Nuts, whole grains, avoid excessive caffeine",
+                cancer: "Comfort foods, dairy in moderation, avoid emotional eating",
+                leo: "Golden foods, citrus fruits, avoid excessive fats",
+                virgo: "High-fiber foods, probiotics, avoid irregular eating",
+                libra: "Balanced meals, beautiful presentation, avoid excess sugar",
+                scorpio: "Detoxifying foods, fermented items, avoid alcohol excess",
+                sagittarius: "International cuisine, philosophical discussions at meals",
+                capricorn: "Bone broth, calcium-rich foods, avoid skipping meals",
+                aquarius: "Innovative recipes, electric-colored foods, avoid routine",
+                pisces: "Fluid-rich foods, intuitive eating, avoid escapist habits"
+            };
+            
+            // Set remedies based on concern
+            if (concern === 'health') {
+                document.getElementById('crystalRemedy').textContent = "Healing " + crystalRemedies[zodiac];
+                document.getElementById('lunarRemedy').textContent = "Health-focused " + lunarRemedies[zodiac];
+                document.getElementById('herbalRemedy').textContent = herbalRemedies[zodiac] + " for wellness";
+                document.getElementById('mantraRemedy').textContent = "Healing affirmation: " + mantraRemedies[zodiac];
+                document.getElementById('planetaryRemedy').textContent = planetaryRemedies[zodiac] + " for vitality";
+                document.getElementById('ritualRemedy').textContent = "Healing " + ritualRemedies[zodiac];
+                document.getElementById('dietRemedy').textContent = "For optimal health: " + dietRemedies[zodiac];
+            }
+            else if (concern === 'love') {
+                document.getElementById('crystalRemedy').textContent = "Heart-opening " + crystalRemedies[zodiac];
+                document.getElementById('lunarRemedy').textContent = "Love-focused " + lunarRemedies[zodiac];
+                document.getElementById('herbalRemedy').textContent = herbalRemedies[zodiac] + " for heart healing";
+                document.getElementById('mantraRemedy').textContent = "Love affirmation: " + mantraRemedies[zodiac];
+                document.getElementById('planetaryRemedy').textContent = planetaryRemedies[zodiac] + " for relationship harmony";
+                document.getElementById('ritualRemedy').textContent = "Love " + ritualRemedies[zodiac];
+                document.getElementById('dietRemedy').textContent = "For heart health: " + dietRemedies[zodiac];
+            }
+            else if (concern === 'career') {
+                document.getElementById('crystalRemedy').textContent = "Abundance-attracting " + crystalRemedies[zodiac];
+                document.getElementById('lunarRemedy').textContent = "Prosperity-focused " + lunarRemedies[zodiac];
+                document.getElementById('herbalRemedy').textContent = herbalRemedies[zodiac] + " for success energy";
+                document.getElementById('mantraRemedy').textContent = "Prosperity affirmation: " + mantraRemedies[zodiac];
+                document.getElementById('planetaryRemedy').textContent = planetaryRemedies[zodiac] + " for career growth";
+                document.getElementById('ritualRemedy').textContent = "Abundance " + ritualRemedies[zodiac];
+                document.getElementById('dietRemedy').textContent = "For sustained energy: " + dietRemedies[zodiac];
+            }
+            else if (concern === 'spiritual') {
+                document.getElementById('crystalRemedy').textContent = "Spiritually awakening " + crystalRemedies[zodiac];
+                document.getElementById('lunarRemedy').textContent = "Enlightenment-focused " + lunarRemedies[zodiac];
+                document.getElementById('herbalRemedy').textContent = herbalRemedies[zodiac] + " for higher consciousness";
+                document.getElementById('mantraRemedy').textContent = "Spiritual affirmation: " + mantraRemedies[zodiac];
+                document.getElementById('planetaryRemedy').textContent = planetaryRemedies[zodiac] + " for spiritual alignment";
+                document.getElementById('ritualRemedy').textContent = "Sacred " + ritualRemedies[zodiac];
+                document.getElementById('dietRemedy').textContent = "For spiritual clarity: " + dietRemedies[zodiac];
+            }
+            else if (concern === 'protection') {
+                document.getElementById('crystalRemedy').textContent = "Protective " + crystalRemedies[zodiac];
+                document.getElementById('lunarRemedy').textContent = "Shielding " + lunarRemedies[zodiac];
+                document.getElementById('herbalRemedy').textContent = herbalRemedies[zodiac] + " for energetic protection";
+                document.getElementById('mantraRemedy').textContent = "Protective affirmation: " + mantraRemedies[zodiac];
+                document.getElementById('planetaryRemedy').textContent = planetaryRemedies[zodiac] + " for strong boundaries";
+                document.getElementById('ritualRemedy').textContent = "Protection " + ritualRemedies[zodiac];
+                document.getElementById('dietRemedy').textContent = "For strong aura: " + dietRemedies[zodiac];
+            }
+            else { // general
+                document.getElementById('crystalRemedy').textContent = crystalRemedies[zodiac];
+                document.getElementById('lunarRemedy').textContent = lunarRemedies[zodiac];
+                document.getElementById('herbalRemedy').textContent = herbalRemedies[zodiac];
+                document.getElementById('mantraRemedy').textContent = mantraRemedies[zodiac];
+                document.getElementById('planetaryRemedy').textContent = planetaryRemedies[zodiac];
+                document.getElementById('ritualRemedy').textContent = ritualRemedies[zodiac];
+                document.getElementById('dietRemedy').textContent = dietRemedies[zodiac];
+            }
+        }
+        
+        function getSignSymbol(sign) {
+            const symbols = {
+                aries: '♈', taurus: '♉', gemini: '♊', cancer: '♋',
+                leo: '♌', virgo: '♍', libra: '♎', scorpio: '♏',
+                sagittarius: '♐', capricorn: '♑', aquarius: '♒', pisces: '♓'
+            };
+            return symbols[sign] || '✧';
+        }
+        
+        function resetRemedyForm() {
+            document.getElementById('remedyForm').reset();
+            document.getElementById('remedyResults').style.display = 'none';
+            document.getElementById('powerBar').style.width = '0';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
