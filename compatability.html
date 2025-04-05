@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Compatibility | Cosmic Insights</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: #0f0c29;
+            background: -webkit-linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Glass Card Style */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            padding: 40px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Cosmic Hearts Animation */
+        .cosmic-hearts {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+        
+        .heart {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%239c7cff"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') center/contain no-repeat;
+            opacity: 0.7;
+        }
+        
+        .heart-1 {
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        .heart-2 {
+            animation: pulse 4s ease-in-out infinite 1s;
+            transform: scale(0.8);
+        }
+        
+        .heart-3 {
+            animation: pulse 4s ease-in-out infinite 2s;
+            transform: scale(0.6);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+        
+        /* Compatibility Meter */
+        .compatibility-meter {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+        
+        .compatibility-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #9c7cff, #6a4cff);
+            border-radius: 10px;
+            width: 0;
+            transition: width 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .compatibility-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                rgba(255,255,255,0) 0%, 
+                rgba(255,255,255,0.3) 50%, 
+                rgba(255,255,255,0) 100%);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Zodiac Pair */
+        .zodiac-pair {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .zodiac-sign {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(156, 124, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            border: 2px solid #9c7cff;
+            transition: all 0.3s ease;
+        }
+        
+        .zodiac-sign:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(156, 124, 255, 0.5);
+        }
+        
+        /* Compatibility Aspects */
+        .aspect-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .aspect-card {
+            background: rgba(156, 124, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .aspect-card:hover {
+            transform: translateY(-5px);
+            background: rgba(156, 124, 255, 0.2);
+        }
+        
+        .aspect-card h3 {
+            color: #9c7cff;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1em;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #9c7cff);
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            color: #9c7cff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .love-message {
+            font-size: 1.2em;
+            text-align: center;
+            margin: 30px 0;
+            font-style: italic;
+            color: #ff6b6b;
+        }
+        
+        @media (max-width: 768px) {
+            .zodiac-pair {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cosmic-hearts {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="glass-card">
+            <h1>Cosmic Compatibility</h1>
+            <p>Discover the celestial chemistry between you and your partner. Our analysis reveals how your zodiac signs interact emotionally, intellectually, and spiritually.</p>
+            
+            <div class="cosmic-hearts">
+                <div class="heart heart-1"></div>
+                <div class="heart heart-2"></div>
+                <div class="heart heart-3"></div>
+            </div>
+            
+            <form id="compatibilityForm">
+                <div class="form-row" style="display: flex; gap: 20px; margin-bottom: 20px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="person1">Your Details</label>
+                        <input type="text" id="person1" placeholder="Your name" required>
+                        <select id="sign1" required style="margin-top: 10px;">
+                            <option value="">Your zodiac sign</option>
+                            <option value="aries">Aries ♈</option>
+                            <option value="taurus">Taurus ♉</option>
+                            <option value="gemini">Gemini ♊</option>
+                            <option value="cancer">Cancer ♋</option>
+                            <option value="leo">Leo ♌</option>
+                            <option value="virgo">Virgo ♍</option>
+                            <option value="libra">Libra ♎</option>
+                            <option value="scorpio">Scorpio ♏</option>
+                            <option value="sagittarius">Sagittarius ♐</option>
+                            <option value="capricorn">Capricorn ♑</option>
+                            <option value="aquarius">Aquarius ♒</option>
+                            <option value="pisces">Pisces ♓</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" style="flex: 1;">
+                        <label for="person2">Partner's Details</label>
+                        <input type="text" id="person2" placeholder="Partner's name" required>
+                        <select id="sign2" required style="margin-top: 10px;">
+                            <option value="">Partner's zodiac sign</option>
+                            <option value="aries">Aries ♈</option>
+                            <option value="taurus">Taurus ♉</option>
+                            <option value="gemini">Gemini ♊</option>
+                            <option value="cancer">Cancer ♋</option>
+                            <option value="leo">Leo ♌</option>
+                            <option value="virgo">Virgo ♍</option>
+                            <option value="libra">Libra ♎</option>
+                            <option value="scorpio">Scorpio ♏</option>
+                            <option value="sagittarius">Sagittarius ♐</option>
+                            <option value="capricorn">Capricorn ♑</option>
+                            <option value="aquarius">Aquarius ♒</option>
+                            <option value="pisces">Pisces ♓</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="question">What would you like to know about your relationship?</label>
+                    <select id="question">
+                        <option value="general">General Compatibility</option>
+                        <option value="love">Emotional Connection</option>
+                        <option value="communication">Communication Style</option>
+                        <option value="intimacy">Physical Intimacy</option>
+                        <option value="future">Long-term Potential</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn">
+                    <i class="fas fa-heart"></i> Analyze Compatibility
+                </button>
+            </form>
+        </div>
+        
+        <div id="compatibilityResults" class="glass-card" style="display: none;">
+            <h1>Your Cosmic Compatibility</h1>
+            
+            <div class="cosmic-hearts">
+                <div class="heart heart-1"></div>
+                <div class="heart heart-2"></div>
+                <div class="heart heart-3"></div>
+            </div>
+            
+            <div class="zodiac-pair">
+                <div class="zodiac-sign" id="sign1Display"></div>
+                <div class="zodiac-sign" style="display: flex; align-items: center;">
+                    <i class="fas fa-heart" style="color: #ff6b6b; font-size: 1.5em;"></i>
+                </div>
+                <div class="zodiac-sign" id="sign2Display"></div>
+            </div>
+            
+            <h2 style="text-align: center;">
+                <span id="person1Name"></span> & <span id="person2Name"></span>
+            </h2>
+            
+            <div class="compatibility-meter">
+                <div class="compatibility-bar" id="compatibilityBar"></div>
+            </div>
+            
+            <p style="text-align: center;" id="compatibilityScore"></p>
+            
+            <div class="love-message" id="loveMessage"></div>
+            
+            <div class="aspect-grid">
+                <div class="aspect-card">
+                    <h3><i class="fas fa-heart"></i> Emotional Connection</h3>
+                    <p id="emotionalConnection"></p>
+                </div>
+                
+                <div class="aspect-card">
+                    <h3><i class="fas fa-comments"></i> Communication</h3>
+                    <p id="communication"></p>
+                </div>
+                
+                <div class="aspect-card">
+                    <h3><i class="fas fa-fire"></i> Physical Chemistry</h3>
+                    <p id="physicalChemistry"></p>
+                </div>
+                
+                <div class="aspect-card">
+                    <h3><i class="fas fa-star"></i> Long-term Potential</h3>
+                    <p id="longTermPotential"></p>
+                </div>
+            </div>
+            
+            <div class="love-message" id="adviceMessage"></div>
+            
+            <button class="btn" onclick="resetCompatibilityForm()">
+                <i class="fas fa-redo"></i> New Analysis
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Compatibility data
+        const compatibilityData = {
+            aries: {
+                aries: { score: 70, emotional: "Passionate but may compete", communication: "Direct and energetic", physical: "Very strong", longterm: "Needs mutual respect" },
+                taurus: { score: 50, emotional: "Different emotional speeds", communication: "May frustrate each other", physical: "Strong attraction", longterm: "Challenging but possible" },
+                // Add all other sign combinations...
+            },
+            // Add all other signs...
+        };
+        
+        // Love messages
+        const loveMessages = [
+            "The stars align beautifully for your connection",
+            "Your cosmic chemistry is undeniable",
+            "A celestial match written in the stars",
+            "Your energies dance together in cosmic harmony",
+            "The universe smiles on your union"
+        ];
+        
+        // Advice messages
+        const adviceMessages = [
+            "Nurture your connection with open communication",
+            "Celebrate your differences as strengths",
+            "Make time for romantic cosmic rituals together",
+            "Trust the universe's plan for your relationship",
+            "Let your love light shine brightly"
+        ];
+        
+        // Form submission
+        document.getElementById('compatibilityForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            analyzeCompatibility();
+        });
+        
+        function analyzeCompatibility() {
+            const person1 = document.getElementById('person1').value;
+            const person2 = document.getElementById('person2').value;
+            const sign1 = document.getElementById('sign1').value;
+            const sign2 = document.getElementById('sign2').value;
+            const question = document.getElementById('question').value;
+            
+            // Display names and signs
+            document.getElementById('person1Name').textContent = person1;
+            document.getElementById('person2Name').textContent = person2;
+            document.getElementById('sign1Display').textContent = getSignSymbol(sign1);
+            document.getElementById('sign2Display').textContent = getSignSymbol(sign2);
+            
+            // Calculate random compatibility score for demo
+            // In real app, use actual compatibility calculations
+            const score = Math.floor(Math.random() * 41) + 60; // Random between 60-100
+            
+            // Update compatibility meter
+            const bar = document.getElementById('compatibilityBar');
+            bar.style.width = `${score}%`;
+            
+            // Set score text
+            document.getElementById('compatibilityScore').textContent = 
+                `${score}% Cosmic Compatibility`;
+            
+            // Set love message
+            document.getElementById('loveMessage').textContent = 
+                loveMessages[Math.floor(Math.random() * loveMessages.length)];
+            
+            // Generate readings based on sign combination
+            generateReadings(sign1, sign2, question);
+            
+            // Show results
+            document.getElementById('compatibilityResults').style.display = 'block';
+            document.getElementById('compatibilityResults').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function generateReadings(sign1, sign2, question) {
+            // Sample readings - in real app use actual compatibility analysis
+            const emotionalTexts = {
+                good: "Your emotional connection is deep and nurturing, with strong intuitive understanding.",
+                medium: "You have different emotional styles but can balance each other well with effort.",
+                challenging: "Emotional expression may require more patience and understanding between you."
+            };
+            
+            const communicationTexts = {
+                good: "Your communication flows naturally with mutual respect and understanding.",
+                medium: "You may need to adapt your communication styles to fully understand each other.",
+                challenging: "Communication requires conscious effort as you have different approaches."
+            };
+            
+            const physicalTexts = {
+                good: "Your physical chemistry is electric with strong magnetic attraction.",
+                medium: "Your physical connection grows stronger as your emotional bond deepens.",
+                challenging: "Physical intimacy may require more emotional openness to fully flourish."
+            };
+            
+            const longtermTexts = {
+                good: "Your relationship has excellent long-term potential with commitment and care.",
+                medium: "With mutual effort and understanding, your relationship can stand the test of time.",
+                challenging: "Long-term success will require embracing your differences as strengths."
+            };
+            
+            // Set readings based on question focus
+            let emotional, communication, physical, longterm;
+            
+            if (question === 'love') {
+                emotional = emotionalTexts.good;
+                communication = communicationTexts.medium;
+                physical = physicalTexts.medium;
+                longterm = longtermTexts.medium;
+            } else if (question === 'communication') {
+                emotional = emotionalTexts.medium;
+                communication = communicationTexts.good;
+                physical = physicalTexts.medium;
+                longterm = longtermTexts.medium;
+            } else if (question === 'intimacy') {
+                emotional = emotionalTexts.medium;
+                communication = communicationTexts.medium;
+                physical = physicalTexts.good;
+                longterm = longtermTexts.medium;
+            } else if (question === 'future') {
+                emotional = emotionalTexts.medium;
+                communication = communicationTexts.medium;
+                physical = physicalTexts.medium;
+                longterm = longtermTexts.good;
+            } else { // general
+                emotional = emotionalTexts.good;
+                communication = communicationTexts.good;
+                physical = physicalTexts.good;
+                longterm = longtermTexts.good;
+            }
+            
+            document.getElementById('emotionalConnection').textContent = emotional;
+            document.getElementById('communication').textContent = communication;
+            document.getElementById('physicalChemistry').textContent = physical;
+            document.getElementById('longTermPotential').textContent = longterm;
+            
+            // Set advice message
+            document.getElementById('adviceMessage').textContent = 
+                adviceMessages[Math.floor(Math.random() * adviceMessages.length)];
+        }
+        
+        function getSignSymbol(sign) {
+            const symbols = {
+                aries: '♈', taurus: '♉', gemini: '♊', cancer: '♋',
+                leo: '♌', virgo: '♍', libra: '♎', scorpio: '♏',
+                sagittarius: '♐', capricorn: '♑', aquarius: '♒', pisces: '♓'
+            };
+            return symbols[sign] || '♡';
+        }
+        
+        function resetCompatibilityForm() {
+            document.getElementById('compatibilityForm').reset();
+            document.getElementById('compatibilityResults').style.display = 'none';
+            document.getElementById('compatibilityBar').style.width = '0';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
